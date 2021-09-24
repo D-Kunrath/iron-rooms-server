@@ -17,6 +17,12 @@ const userSchema = new Schema(
         ref: "Room",
       },
     ],
+    reviewIds: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
   },
   {
     timestamps: true,

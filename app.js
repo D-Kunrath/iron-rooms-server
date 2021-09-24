@@ -13,8 +13,8 @@ const authMiddleware = require("./middlewares/auth.middleware");
 
 // route requests
 const loginRoutes = require("./routes/auth.routes");
-const roomRoutes = require("./routes/rooms.routes");
-const reviewRoutes = require("./routes/reviews.routes");
+const roomRoutes = require("./routes/room.routes");
+const reviewRoutes = require("./routes/review.routes");
 
 // public routes
 app.use("/auth", loginRoutes);

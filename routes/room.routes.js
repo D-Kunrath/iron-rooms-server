@@ -4,7 +4,7 @@ const Room = require("../models/Room.model");
 
 const router = Router();
 
-// create new room
+// create a new room
 router.post("/", async (req, res) => {
   try {
     const room = await Room.create(req.body);
@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// edit room
+// edit a room
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -29,12 +29,12 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-// delete room
+// delete a room
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const room = await Room.findByIdAndDelete(id);
-    res.status(200).json(room);
+    await Room.findByIdAndDelete(id);
+    res.status(200).json({ message: "room deleted" });
   } catch (error) {
     res
       .status(500)
@@ -42,7 +42,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// get all rooms
+// get rooms
 router.get("/", async (req, res) => {
   try {
     const rooms = await Room.find();
@@ -54,11 +54,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// get one room
+// get a room
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const room = await Room.findById(id);
+    const room = await Room.findById(id).populate("reviews");
     res.status(200).json(room);
   } catch (error) {
     res

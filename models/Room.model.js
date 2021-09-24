@@ -18,6 +18,10 @@ const roomSchema = new Schema(
         ref: "Review",
       },
     ],
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   {
     timestamps: true,
