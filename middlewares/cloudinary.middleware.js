@@ -11,7 +11,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: process.env.CLOUDINARY_FOLDER,
+    folder: "iron-rooms",
     resource_type: "image",
   },
 });
