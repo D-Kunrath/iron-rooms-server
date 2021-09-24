@@ -21,7 +21,9 @@ router.post("/signup", async (req, res) => {
     });
     res.status(201).json({ message: `Created user: ${username}` });
   } catch (error) {
-    res.status(500).json({ message: "Error creating user", error });
+    res
+      .status(500)
+      .json({ message: "Error creating user", error: error.message });
   }
 });
 

@@ -11,18 +11,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    roomIds: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Room",
-      },
-    ],
-    reviewIds: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Review",
-      },
-    ],
   },
   {
     timestamps: true,

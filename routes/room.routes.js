@@ -6,8 +6,9 @@ const router = Router();
 
 // create a new room
 router.post("/", async (req, res) => {
+  const { id: userId } = req.user;
   try {
-    const room = await Room.create(req.body);
+    const room = await Room.create({ ...req.body, user: userId });
     res.status(201).json(room);
   } catch (error) {
     res
@@ -54,7 +55,20 @@ router.get("/", async (req, res) => {
   }
 });
 
-// get a room
+// get rooms from user
+router.get("/user", async (req, res) => {
+  const { id: userId } = req.user;
+  try {
+    const rooms = await Room.find({ user: userId });
+    res.status(200).json(rooms);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ mesage: "error getting rooms from user", error: error.message });
+  }
+});
+
+// get a room with reviews
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {

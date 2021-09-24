@@ -1,8 +1,21 @@
 const { Router } = require("express");
 
 const Review = require("../models/Review.model");
+const Room = require("../models/Room.model");
 
 const router = Router();
+
+// get reviews
+router.get("/", async (req, res) => {
+  try {
+    const reviews = await Review.find();
+    res.status(200).json(reviews);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "error trying to get reviews", error: error.message });
+  }
+});
 
 // get a review
 router.get("/:reviewId", async (req, res) => {
@@ -17,7 +30,7 @@ router.get("/:reviewId", async (req, res) => {
 
 // get reviews from a room
 router.get("/room/:roomId", async (req, res) => {
-  const { roomId } = req.body;
+  const { roomId } = req.params;
   try {
     const reviews = await Review.find({ roomId }).populate("user", [
       "username",
@@ -32,13 +45,18 @@ router.get("/room/:roomId", async (req, res) => {
 });
 
 // create a review
-router.post("/", async (req, res) => {
+router.post("/:roomId", async (req, res) => {
   const { id } = req.user;
+  const { roomId } = req.params;
   try {
-    const review = await Review.create({ ...req.body, user: id });
+    const review = await Review.create({ ...req.body, roomId, user: id });
+    await Room.findByIdAndUpdate(roomId, { $push: { reviews: review._id } });
     res.status(201).json(review);
   } catch (error) {
-    res.status(500).json({ message: "error trying to craete a review", error });
+    res.status(500).json({
+      message: "error trying to craete a review",
+      error: error.message,
+    });
   }
 });
 

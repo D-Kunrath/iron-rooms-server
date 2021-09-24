@@ -5,9 +5,10 @@ const auth = (req, res, next) => {
 
   if (!token) {
     res.status(401).json({ message: "No token" });
+    return;
   }
 
-  const tokenWithoutBearer = token.split(" ")[0];
+  const tokenWithoutBearer = token.split(" ")[1];
 
   try {
     const decodedToken = jwt.verify(tokenWithoutBearer, process.env.SECRET_JWT);
