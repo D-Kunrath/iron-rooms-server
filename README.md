@@ -1,6 +1,10 @@
 # Code along IRONHACK SÃO PAULO WDPT 50
 
-**[ LAB ]**: https://github.com/ironhack-sao-wdft/lab-express-rooms-with-reviews
+This is a RESTful API exercise presented as a challenge and then, as requested, a Code Along as an example resolution for the class on 27/Out/2021.
+
+---
+
+[LAB express rooms with reviews](https://github.com/ironhack-sao-wdft/lab-express-rooms-with-reviews)
 
 ---
 
@@ -12,20 +16,20 @@
 
 ---
 
-## TECH:
+## TECHNOLOGIES:
 
 IronRooms server uses:
 
 - nodejs;
 - express;
 - json web token;
-- bcryptjs;
+- bcryptjs.
 
 ---
 
 ## USAGE:
 
-Online: `https://api-ironrooms.herokuapp.com/`
+Online: [API IronRooms](https://api-ironrooms.herokuapp.com/)
 
 -or-
 
@@ -41,7 +45,7 @@ DB_URI=       // your local mongoDB storage or AtlasDB
 SECRET_JWT=   // your own secret
 ```
 
-- Use `npm start` or `npm run dev` to start application at:
+- Use `npm start` (node) or `npm run dev` (nodemon) to start application at:
 
 ```
 http://localhost:<PORT>
@@ -70,15 +74,22 @@ http://localhost:<PORT>
 
 ²: required field.
 
+### Payload fields:
+
+All fields presented are Strings
+
 ### Response fields:
 
 ```javascript
 message: String;
+
 user: {
   id: String,
   username: String
 };
+
 token: String;
+
 review: {
   _id: ObjectId,
   comment: String,
@@ -87,6 +98,7 @@ review: {
   createdAt: Date,
   updatedAt: Date
 };
+
 room: {
   _id: ObjectId,
   name: String,
