@@ -44,7 +44,7 @@ SECRET_JWT=   // your own secret
 - Use `npm start` or `npm run dev` to start application at:
 
 ```
-http:localhost:<PORT>
+http://localhost:<PORT>
 ```
 
 ---
