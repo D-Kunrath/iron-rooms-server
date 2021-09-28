@@ -4,7 +4,7 @@ const auth = (req, res, next) => {
   const token = req.get("Authorization");
 
   if (!token) {
-    res.status(401).json({ message: "No token" });
+    res.status(401).json({ message: "Request without token" });
     return;
   }
 

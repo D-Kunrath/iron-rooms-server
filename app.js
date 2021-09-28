@@ -1,37 +1,45 @@
+// configurações
 require("dotenv").config();
 require("./configs/db.config");
+
+// pacotes
 const express = require("express");
 const cors = require("cors");
+
 const app = express();
 
-// configs
+// importar middlewares
+const authMiddleware = require("./middlewares/auth.middleware");
+
+// middlewares gerais
 app.use(express.json());
 app.use(cors());
 
-// middleware requests
-const authMiddleware = require("./middlewares/auth.middleware");
-
-// route requests
-const loginRoutes = require("./routes/auth.routes");
-const roomRoutes = require("./routes/room.routes");
+// importar rotas
+const authRoutes = require("./routes/auth.routes");
 const reviewRoutes = require("./routes/review.routes");
+const roomRoutes = require("./routes/room.routes");
 
-// public routes
-app.use("/auth", loginRoutes);
+// rotas públicas
+app.use("/auth", authRoutes);
 
-// route middlewares
+// middleware de autenticação
 app.use(authMiddleware);
 
-// private routes
-app.use("/rooms", roomRoutes);
-app.use("/reviews", reviewRoutes);
+// rotas privadas
+app.use("/review", reviewRoutes);
+app.use("/room", roomRoutes);
 
-// server start
+// inicia o servidor
 app.listen(process.env.PORT, () => {
-  console.log(" >>> Server running on PORT:", process.env.PORT);
+  console.log(`Server running on port:`, process.env.PORT);
 });
 
+/*
+    ### AS VEZES O NODEMON DÁ CONFLITO DE PORTA QUANDO REINICIA.
+    O CÓDIGO ABAIXO GARANTE QUE ELE ENCERRE O PROCESSO ###
+*/
+
 process.on("SIGINT", () => {
-  console.log(" >>> Stopping server");
   process.exit();
 });

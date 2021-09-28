@@ -5,7 +5,7 @@ const connect = async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  console.log("Connected to DB:", connection.connections[0].name);
+  console.log(`Connected to DB: ${connection.connections[0].name}`);
 };
 
 connect();

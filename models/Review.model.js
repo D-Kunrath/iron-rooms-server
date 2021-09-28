@@ -11,7 +11,7 @@ const reviewSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Room",
     },
-    user: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
