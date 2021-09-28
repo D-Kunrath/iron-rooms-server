@@ -55,7 +55,7 @@ http://localhost:<PORT>
 
 ## Endpoints:
 
-| METHOD | ENDPOINT¹         | PAYLOAD²                         | RESPONSE        | ACTION                                                                            |
+| METHOD | ENDPOINT¹         | PAYLOAD                          | RESPONSE        | ACTION                                                                            |
 | ------ | ----------------- | -------------------------------- | --------------- | --------------------------------------------------------------------------------- |
 | POST   | /auth/signup      | { username², password² }         | { message }     | Creates a user in DB                                                              |
 | POST   | /auth/login       | { username², password² }         | { user, token } | Creates a token for the user to access private routes                             |
