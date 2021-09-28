@@ -51,21 +51,50 @@ http:localhost:<PORT>
 
 ## Endpoints:
 
-| METHOD | ENDPOINT¹         | PAYLOAD                          | RESPONSE        | ACTION                                                                            |
+| METHOD | ENDPOINT¹         | PAYLOAD²                         | RESPONSE        | ACTION                                                                            |
 | ------ | ----------------- | -------------------------------- | --------------- | --------------------------------------------------------------------------------- |
 | POST   | /auth/signup      | { username², password² }         | { message }     | Creates a user in DB                                                              |
 | POST   | /auth/login       | { username², password² }         | { user, token } | Creates a token for the user to access private routes                             |
+| POST   | /review/:roomId   | { comment² }                     | { review }      | Creates a review linked to the user and room. Users cannot review their own rooms |
+| GET    | /review/:roomId   | -                                | [ { review } ]  | Get all reviews from a room                                                       |
+| PUT    | /review/:reviewId | { comment }                      | { review }      | Updates a review made by the user                                                 |
+| DELETE | /review           | -                                | { message }     | Deletes a review                                                                  |
 | POST   | /room             | { name², description, imageUrl } | { room }        | Creates a room linked to the user                                                 |
 | GET    | /room/all         | -                                | [{ room }]      | Get all rooms from DB                                                             |
 | GET    | /room/:roomId     | -                                | { room }        | Get a room by the id with reviews populated                                       |
 | GET    | /room/user        | -                                | [{ room }]      | Get all rooms created by the user                                                 |
 | PUT    | /room/:roomId     | { name, description, imageUrl }  | { room }        | Updates a room name, description or imageUrl                                      |
 | DELETE | /room/:roomId     | -                                | { message }     | Deletes a room and all reviews linked to it                                       |
-| POST   | /review/:roomId   | { comment² }                     | { review }      | Creates a review linked to the user and room. Users cannot review their own rooms |
-| GET    | /review/:roomId   | -                                | [ { review } ]  | Get all reviews from a room                                                       |
-| PUT    | /review/:reviewId | { comment }                      | { review }      | Updates a review made by the user                                                 |
-| DELETE | /review           | -                                | { message }     | Deletes a review                                                                  |
 
 ¹: all endpoints except the ones starting with `/auth` need to use a token (bearer) authorization header.
 
 ²: required field.
+
+### Response fields:
+
+```javascript
+message: String;
+user: {
+  id: String,
+  username: String
+};
+token: String;
+review: {
+  _id: ObjectId,
+  comment: String,
+  roomId: ObjectId,
+  userId: ObjectId,
+  createdAt: Date,
+  updatedAt: Date
+};
+room: {
+  _id: ObjectId,
+  name: String,
+  description: String,
+  imageUrl: String,
+  reviews: [ ObjectId ],
+  userId: ObjectId,
+  createdAt: Date,
+  updatedAt: Date
+};
+```
